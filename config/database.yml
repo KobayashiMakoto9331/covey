@@ -19,7 +19,13 @@ default: &default
 
 development:
   <<: *default
-  database: covey_development
+  # ローカルMySQL
+  host: <%= ENV.fetch('TEST_MYSQL_HOST', 'db') %>
+  port: 3306
+  username: <%= ENV.fetch('TEST_MYSQL_USERNAME', 'root') %>
+  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'root') %>
+  database: training
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
