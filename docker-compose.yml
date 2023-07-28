@@ -1,0 +1,44 @@
+version: "3.4"
+services:
+  web:
+    build:
+      context: .
+      args:
+        - RAILS_ENV=development
+    platform: linux/x86_64
+    command: tail -f /dev/null
+    volumes:
+      - .:/covey
+    tty: true
+    ports:
+      - 3001:3001
+    networks:
+      - default
+      - shared-network
+  db:
+    build: ./db
+    platform: linux/x86_64
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
+      MYSQL_TCP_PORT: 3306
+    networks:
+      - default
+      - shared-network
+    command: |
+      --sql_mode=""
+      --explicit-defaults-for-timestamp=1
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    networks:
+      - default
+      - shared-network
+networks:
+  shared-network:
+    external: true
