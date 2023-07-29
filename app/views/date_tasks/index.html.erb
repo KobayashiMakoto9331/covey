@@ -1,0 +1,6 @@
+<% @date_tasks.each do |date_task| %>
+  <p><%= date_task.date %></p>
+  <% date_task.scheduled_tasks.each do |task| %>
+    <p><%= task.title %></p>
+    <% end %>
+<% end %>
