@@ -32,6 +32,8 @@ services:
     command: |
       --sql_mode=""
       --explicit-defaults-for-timestamp=1
+    volumes:
+      - ./mysql:/var/lib/mysql
   redis:
     image: redis
     ports:
